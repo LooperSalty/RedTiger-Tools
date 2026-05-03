@@ -1,0 +1,584 @@
+{
+    "Steam": {
+        "url": "https://steamcommunity.com/id/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Telegram": {
+        "url": "https://t.me/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": ["if you have telegram, you can contact @%USERNAME% right away.", "resolve?domain=%USERNAME%", "telegram: contact @%USERNAME%"]
+    },
+    "TikTok": {
+        "url": "https://www.tiktok.com/@%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": ["\\u002f@%USERNAME%\""]
+    },
+    "Instagram": {
+        "url": "https://www.instagram.com/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Paypal": {
+        "url": "https://www.paypal.com/paypalme/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": ["slug_name=%USERNAME%", "\"slug\":\"%USERNAME%\"", "2F%USERNAME%&amp"]
+    },
+    "GitHub": {
+        "url": "https://github.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Pinterest": {
+        "url": "https://www.pinterest.com/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": ["[\\\"username\\\",\\\"%USERNAME%\\\"]"]
+    },
+    "Snapchat": {
+        "url": "https://www.snapchat.com/add/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Blogger": {
+        "url": "https://%USERNAME%.blogspot.com",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Tumblr": {
+        "url": "https://%USERNAME%.tumblr.com",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "SoundCloud": {
+        "url": "https://soundcloud.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "DeviantArt": {
+        "url": "https://www.deviantart.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "About.me": {
+        "url": "https://about.me/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Flickr": {
+        "url": "https://www.flickr.com/people/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Keybase": {
+        "url": "https://keybase.io/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Last.fm": {
+        "url": "https://www.last.fm/user/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Behance": {
+        "url": "https://www.behance.net/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Quora": {
+        "url": "https://www.quora.com/profile/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Patreon": {
+        "url": "https://www.patreon.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Myspace": {
+        "url": "https://myspace.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Kaggle": {
+        "url": "https://www.kaggle.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Periscope": {
+        "url": "https://www.pscp.tv/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Disqus": {
+        "url": "https://disqus.com/by/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Mastodon": {
+        "url": "https://mastodon.social/@%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "GitLab": {
+        "url": "https://gitlab.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "LiveJournal": {
+        "url": "https://%USERNAME%.livejournal.com",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "CodeWars": {
+        "url": "https://www.codewars.com/users/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Gumroad": {
+        "url": "https://gumroad.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Spotify": {
+        "url": "https://open.spotify.com/user/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Weebly": {
+        "url": "https://%USERNAME%.weebly.com",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "YouTube": {
+        "url": "https://www.youtube.com/@%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "ProductHunt": {
+        "url": "https://www.producthunt.com/@%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Mix": {
+        "url": "https://mix.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Facebook": {
+        "url": "https://www.facebook.com/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Strava": {
+        "url": "https://www.strava.com/athletes/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Guns.lol": {
+        "url": "https://guns.lol/%USERNAME%",
+        "method": "get",
+        "verification": "keyword",
+        "except": ["click to enter"]
+    },
+    "Linktree": {
+        "url": "https://linktr.ee/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Xbox": {
+        "url": "https://www.xboxgamertag.com/search/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Twitch": {
+        "url": "https://www.twitch.tv/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Goodreads": {
+        "url": "https://www.goodreads.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "VK": {
+        "url": "https://vk.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "TripAdvisor": {
+        "url": "https://www.tripadvisor.com/members/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Dribbble": {
+        "url": "https://dribbble.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "AngelList": {
+        "url": "https://angel.co/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "500px": {
+        "url": "https://500px.com/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "LinkedIn": {
+        "url": "https://www.linkedin.com/in/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Weibo": {
+        "url": "https://weibo.com/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "OKCupid": {
+        "url": "https://www.okcupid.com/profile/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Meetup": {
+        "url": "https://www.meetup.com/members/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "CodePen": {
+        "url": "https://codepen.io/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "StackOverflow": {
+        "url": "https://stackoverflow.com/users/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "HackerRank": {
+        "url": "https://www.hackerrank.com/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Xing": {
+        "url": "https://www.xing.com/profile/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Deezer": {
+        "url": "https://www.deezer.com/en/user/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Ravelry": {
+        "url": "https://www.ravelry.com/people/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Vine": {
+        "url": "https://vine.co/u/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Foursquare": {
+        "url": "https://foursquare.com/user/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Ello": {
+        "url": "https://ello.co/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Hootsuite": {
+        "url": "https://hootsuite.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Prezi": {
+        "url": "https://prezi.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Groupon": {
+        "url": "https://www.groupon.com/profile/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Liveleak": {
+        "url": "https://www.liveleak.com/c/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Joomla": {
+        "url": "https://www.joomla.org/user/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "StackExchange": {
+        "url": "https://stackexchange.com/users/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Taringa": {
+        "url": "https://www.taringa.net/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Shopify": {
+        "url": "https://%USERNAME%.myshopify.com",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "8tracks": {
+        "url": "https://8tracks.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Couchsurfing": {
+        "url": "https://www.couchsurfing.com/people/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "OpenSea": {
+        "url": "https://opensea.io/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Trello": {
+        "url": "https://trello.com/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Fiverr": {
+        "url": "https://www.fiverr.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Badoo": {
+        "url": "https://badoo.com/profile/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Rumble": {
+        "url": "https://rumble.com/user/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Wix": {
+        "url": "https://www.wix.com/website/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "ReverbNation": {
+        "url": "https://www.reverbnation.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Vimeo": {
+        "url": "https://vimeo.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "allmylinks": {
+        "url": "https://allmylinks.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Medium": {
+        "url": "https://medium.com/@%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Reddit": {
+        "url": "https://reddit.com/user/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "X (Twitter)": {
+        "url": "https://x.com/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null  
+    },
+    "Fosstodon": {
+        "url": "https://fosstodon.org/@%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Bugcrowd": {
+        "url": "https://bugcrowd.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "HackerOne": {
+        "url": "https://hackerone.com/%USERNAME%",
+        "method": "post",
+        "verification": "status",
+        "except": null
+    },
+    "HackTheBox": {
+        "url": "https://app.hackthebox.com/profile/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": ["User not found"]
+    },
+    "RootMe": {
+        "url": "https://www.root-me.org/%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": ["User not found"]
+    },
+    "Apple Developer": {
+        "url": "https://developer.apple.com/forums/profile/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Apple Discussions": {
+        "url": "https://discussions.apple.com/profile/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Hacker News": {
+        "url": "https://news.ycombinator.com/user?id=%USERNAME%",
+        "method": "get",
+        "verification": "username",
+        "except": null
+    },
+    "Bitbucket": {
+        "url": "https://bitbucket.org/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Slack": {
+        "url": "https://%USERNAME%.slack.com",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "SlideShare": {
+        "url": "https://www.slideshare.net/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": ["This username"]
+    },
+    "Wattpad": {
+        "url": "https://www.wattpad.com/user/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Codecademy": {
+        "url": "https://www.codecademy.com/profiles/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": ["This profile could not be found"]
+    },
+    "Gravatar": {
+        "url": "https://gravatar.com/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Dev.to": {
+        "url": "https://dev.to/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    },
+    "Kaskus": {
+        "url": "https://www.kaskus.co.id/profile/@%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": ["We can't find the page you are looking for", "User Tidak Ditemukan"]
+    },
+    "Crunchbase": {
+        "url": "https://www.crunchbase.com/person/%USERNAME%",
+        "method": "get",
+        "verification": "status",
+        "except": null
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "default_useragent": "%TOOL_NAME%/%TOOL_VERSION%",
+  "default_http_timeout": 5,
+  "default_socket_timeout": 3,
+  "default_icmp_timeout": 1,
+  "default_tcp_icmp_timeout": 1,
+  "default_interval": 1,
+  "default_port": 80,
+  "default_bytes": 32,
+  "default_protocol": "TCP",
+  "default_http_proxy": null,
+  "default_socket_proxy": null,
+  "default_cookie": null,
+  "default_instagram_session_id": null,
+  "max_port": 65535,
+  "max_bytes": 65500
+}
