@@ -244,7 +244,7 @@ def GetImageMetadata(path, json_data):
                 json_data["Image"]["Dimension"] = f"{img.width}x{img.height}"
                 Add(f"Image width: {white}{img.width}")
                 Add(f"Image height: {white}{img.height}")
-                Add(f"Image dimension: {white}{json_data["Image"]["Dimension"]}")
+                Add(f"Image dimension: {white}{json_data['Image']['Dimension']}")
 
             bands = img.getbands()
             if bands:
@@ -311,17 +311,17 @@ def GetAudioMetadata(path, json_data):
                     Add(f"Audio cover mime: {white}{value.mime}")
                 if hasattr(value, "type"):
                     cover["Type"] = str(value.type)
-                    Add(f"Audio cover type: {white}{cover["Type"]}")
+                    Add(f"Audio cover type: {white}{cover['Type']}")
                 if hasattr(value, "desc") and value.desc:
                     cover["Description"] = value.desc
                     Add(f"Audio cover description: {white}{value.desc}")
                 if value.data:
                     cover["Size"] = len(value.data)
-                    Add(f"Audio cover size: {white}{cover["Size"]}")
+                    Add(f"Audio cover size: {white}{cover['Size']}")
                     cover["MD5"] = hashlib.md5(value.data).hexdigest()
-                    Add(f"Audio cover MD5: {white}{cover["MD5"]}")
+                    Add(f"Audio cover MD5: {white}{cover['MD5']}")
                     cover["SHA256"] = hashlib.sha256(value.data).hexdigest()
-                    Add(f"Audio cover SHA256: {white}{cover["SHA256"]}")
+                    Add(f"Audio cover SHA256: {white}{cover['SHA256']}")
                 if cover:
                     json_data["Audio"]["Cover"] = cover
             else:
@@ -364,13 +364,13 @@ def GetFileMetadata(path, json_data):
             Add(f"File size: {white}{st.st_size}")
         if hasattr(st, "st_ctime"):
             json_data["File"]["Created"] = time.ctime(st.st_ctime)
-            Add(f"File created: {white}{json_data["File"]["Created"]}")
+            Add(f"File created: {white}{json_data['File']['Created']}")
         if hasattr(st, "st_mtime"):
             json_data["File"]["Modified"] = time.ctime(st.st_mtime)
-            Add(f"File modified: {white}{json_data["File"]["Modified"]}")
+            Add(f"File modified: {white}{json_data['File']['Modified']}")
         if hasattr(st, "st_atime"):
             json_data["File"]["Accessed"] = time.ctime(st.st_atime)
-            Add(f"File accessed: {white}{json_data["File"]["Accessed"]}")
+            Add(f"File accessed: {white}{json_data['File']['Accessed']}")
         if hasattr(st, "st_mode"):
             mode = st.st_mode
             perms = []
@@ -386,7 +386,7 @@ def GetFileMetadata(path, json_data):
                 except: pass
             if perms:
                 json_data["File"]["Permissions"] = f"{mode}: " + str(" / ".join(sorted(set(perms))))
-                Add(f"File permissions: {white}{json_data["File"]["Permissions"]}")
+                Add(f"File permissions: {white}{json_data['File']['Permissions']}")
     except: pass
     return json_data
 

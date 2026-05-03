@@ -6,17 +6,17 @@ from Config.Utils import *
 from Program.Utils.NetworkScanningUtils import *
 
 def UrlValidExtension(url):
-    return re.search(r'\.(html|xhtml|php|js|css)$', url) or not re.search(r'\.\w+$', url)
+    return re.search(r"\.(html|xhtml|php|js|css)$", url) or not re.search(r"\.\w+$", url)
 
 def UrlClean(url):
-    stop_chars = ['"', '}', ']', '{', '[']
+    stop_chars = ["\"", "}", "]", "{", "["]
     for char in stop_chars:
         if char in url:
             url = url.split(char)[0]
     url = url.replace("\\", "")
     return url
 
-def ExtractLinks(base_url, domain, tags, all_links, attr_list=('href', 'src', 'action')):
+def ExtractLinks(base_url, domain, tags, all_links, attr_list=("href", "src", "action")):
     extracted = []
     for tag in tags:
         for attr in attr_list:
@@ -33,7 +33,7 @@ def ExtractLinksFromScripts(scripts, domain, all_links):
     extracted = []
     for script in scripts:
         if script.string:
-            for url in re.findall(r'(https?://\S+)', script.string):
+            for url in re.findall(r"(https?://\S+)", script.string):
                 url = UrlClean(url)
                 if domain in url and UrlValidExtension(url) and url not in all_links:
                     all_links.add(url)
@@ -51,9 +51,9 @@ def FindSecretUrls(url, domain, session, all_links, http_timeout):
         else:
             warnings.filterwarnings("ignore", category=bs4.XMLParsedAsHTMLWarning)
             soup = bs4.BeautifulSoup(response.content, "html.parser")
-        tags = soup.find_all(['a', 'link', 'script', 'img', 'iframe', 'button', 'form'])
+        tags = soup.find_all(["a", "link", "script", "img", "iframe", "button", "form"])
         extracted_links = ExtractLinks(url, domain, tags, all_links)
-        extracted_links += ExtractLinksFromScripts(soup.find_all('script'), domain, all_links)
+        extracted_links += ExtractLinksFromScripts(soup.find_all("script"), domain, all_links)
         for link in extracted_links: Add(f"URL found: {white + str(link)}")
     except: pass
 
@@ -125,10 +125,10 @@ def UrlDiscoveryCrawler(target=None, mode=None, output=None, http_timeout=None, 
         Wait("Scanning..")
         state = {"stop": False}
         StartThread(StatsPressed, state, time_start=time.time())
-        if mode in ('1', '01', 'onlypage'): 
+        if mode in ("1", "01", "onlypage"): 
             json_data["Parameters"]["Mode"] = "onlypage"
             FindSecretUrls(url, domain, session, all_links, http_timeout)
-        elif mode in ('2', '02', 'allwebsite'): 
+        elif mode in ("2", "02", "allwebsite"): 
             json_data["Parameters"]["Mode"] = "allwebsite"
             FindAllSecretUrls(url, domain, session, all_links, http_timeout)
         else: 

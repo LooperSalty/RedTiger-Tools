@@ -9,7 +9,7 @@ def Register(): # Main plugin execution function. (Required)
         "name"       : "%NAME%",        # Name displayed in the menu.
         "description": "%DESCRIPTION%", # Description displayed in the menu.
         "function"   : Run,             # Function executed when the tool is called.
-        "arguments"  : {                # CLI arguments automatically handled by argparse.
+        "arguments"  : {                # CLI arguments automatically handled by argparse. (Leave blank if needed)
             
             # Required argument examples for correct functioning:
             # ----------------------------------------------------------------------------------------

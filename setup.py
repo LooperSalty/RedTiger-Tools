@@ -29,9 +29,11 @@ def CheckPath():
 
 def InstallDependencies():
     print(f"{INFO} Installing the Python dependencies required for the RedTiger-Tools:")
-    try: subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip",       "--break-system-packages"], check=True)
-    except: pass
-    subprocess.run(     [sys.executable, "-m", "pip", "install", "-r", "requirements.txt", "--break-system-packages"], check=True)
+    try: subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip", "--break-system-packages"], check=True)
+    except: 
+        try: subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"], check=True)
+        except: pass
+    subprocess.run([sys.executable, "-m", "pip", "install", "-r", "requirements.txt", "--break-system-packages"], check=True)
     
 def Choice(mode):
     if mode.lower().strip() in ("1", "01", "enable"):    version = "enable"

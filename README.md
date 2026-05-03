@@ -36,7 +36,7 @@
 <h2>⚙️ Installation:</h2>
 
 <ol>
-  <li>Installed the latest version of python:</li>
+  <li>Installed the latest version of python (3.14):</li>
   - Windows:
   <pre><a href="https://www.python.org/downloads">Download Here</a> (The "PATH" option must be enabled during installation)</pre>
   - Linux:

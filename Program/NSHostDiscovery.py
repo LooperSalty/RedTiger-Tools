@@ -24,7 +24,7 @@ def ClassifyIp(lock, ip, port, ip_width, protocol_width, up_hosts, counters, tcp
             latency = min(latencies, key=lambda x: float("inf") if x == "timeout" else x)
             protocol = " / ".join(methods)
             up_hosts.append({"IP": ip, "Status": "Up", "Protocol": protocol, "Latency": latency})
-            Add(f"{white}{ip:<{ip_width}} {protocol:<{protocol_width}} {"Up":<8} {latency}")
+            Add(f"{white}{ip:<{ip_width}} {protocol:<{protocol_width}} {'Up':<8} {latency}")
         else: counters["Filtered or down"] += 1
     state["completed"] += 1
 
@@ -90,10 +90,10 @@ def HostDiscovery(target=None, output=None, port=None, tcp_icmp_timeout=None, so
     global state
     state = {"stop": False, "completed": 0, "completed_total": total_hosts}
     StartThread(StatsPressed, state, time_start=time.time())
-    print(f"{red}{"":<14} {'IP:':<{ip_width}} {'Protocol:':<{protocol_width}} {"Status:":<8} Latency:{reset}")
+    print(f"{red}{'':<14} {'IP:':<{ip_width}} {'Protocol:':<{protocol_width}} {'Status:':<8} Latency:{reset}")
     up_hosts, counters = ScanNetwork(lock, network, port, ip_width, protocol_width, tcp_icmp_timeout)
     state["stop"] = True
-    Info(f"Up: {white}{len(up_hosts)}{red} Filtered or down (no response): {white}{counters["Filtered or down"]}")
+    Info(f"Up: {white}{len(up_hosts)}{red} Filtered or down (no response): {white}{counters['Filtered or down']}")
 
     json_data = {
         "Parameters": {

@@ -187,8 +187,8 @@ def StatsPressed(state, time_start=None):
     while thread_status:
         if keyboard.is_pressed("s"):
             text = f"Status: {white}in progress.. "
-            if "message" in state: text += f"{state["message"]} "
-            if "completed" in state and "completed_total" in state: text += f"{red}Completed: {white}{state["completed"]}/{state["completed_total"]} "
+            if 'message' in state: text += f"{state['message']} "
+            if "completed" in state and "completed_total" in state: text += f"{red}Completed: {white}{state['completed']}/{state['completed_total']} "
             if time_start: text += f"{red}Time: {white}{(time.time() - time_start):.2f}s "
             Info(text)
         if "stop" in state:

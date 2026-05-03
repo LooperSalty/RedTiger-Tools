@@ -4,29 +4,33 @@
 
 from Config.Utils import *
 
-from Program.NSAdvancedScanner       import AdvancedScanner
-from Program.NSVulnerabilityScanner  import VulnerabilityScanner
-from Program.NSPortScanner           import PortScanner
-from Program.NSUrlDiscoveryCrawler   import UrlDiscoveryCrawler
-from Program.NSIpPinger              import IpPinger
-from Program.NSHostDiscovery         import HostDiscovery
+try:
+    from Program.NSAdvancedScanner       import AdvancedScanner
+    from Program.NSVulnerabilityScanner  import VulnerabilityScanner
+    from Program.NSPortScanner           import PortScanner
+    from Program.NSUrlDiscoveryCrawler   import UrlDiscoveryCrawler
+    from Program.NSIpPinger              import IpPinger
+    from Program.NSHostDiscovery         import HostDiscovery
 
-from Program.ODorkingQueryEngine     import DorkingQueryEngine
-from Program.OWalletTracker          import WalletTracker
-from Program.OUsernameTracker        import UsernameTracker
-from Program.OEmailTracker           import EmailTracker
-from Program.OEmailLookup            import EmailLookup
-from Program.OIpLookup               import IpLookup
-from Program.OPhoneNumerLookup       import PhoneNumerLookup
-from Program.OInstagramProfileLookup import InstagramProfileLookup
+    from Program.ODorkingQueryEngine     import DorkingQueryEngine
+    from Program.OWalletTracker          import WalletTracker
+    from Program.OUsernameTracker        import UsernameTracker
+    from Program.OEmailTracker           import EmailTracker
+    from Program.OEmailLookup            import EmailLookup
+    from Program.OIpLookup               import IpLookup
+    from Program.OPhoneNumerLookup       import PhoneNumerLookup
+    from Program.OInstagramProfileLookup import InstagramProfileLookup
 
-from Program.UFileMetadataScanner    import FileMetadataScanner
-from Program.UFileMetadataDeleter    import FileMetadataDeleter
-from Program.UWebsiteCloner          import WebsiteCloner
+    from Program.UFileMetadataScanner    import FileMetadataScanner
+    from Program.UFileMetadataDeleter    import FileMetadataDeleter
+    from Program.UWebsiteCloner          import WebsiteCloner
 
-from Program.THelp                   import Help
-from Program.TVersion                import Version
-from Program.TSettingsUpdate         import SettingsUpdate
+    from Program.THelp                   import Help
+    from Program.TVersion                import Version
+    from Program.TSettingsUpdate         import SettingsUpdate
+except Exception as e: 
+    Error(f"Error while loading programs: {white}{e}")
+    sys.exit()
 
 def InjectPlugins(options_list):
     plugins = {}
@@ -185,7 +189,7 @@ def BuildMenu(option_names, option_categories, options_list):
     title_line = "  "
 
     for category, _ in categories: title_line += f"{BEFORE + category + AFTER:<{col_width}}"
-    if not any(category == "Plugins" for category, _ in categories): title_line += f"{BEFORE + "Plugins" + AFTER:<{col_width}}"
+    if not any(category == "Plugins" for category, _ in categories): title_line += f"{BEFORE + 'Plugins' + AFTER:<{col_width}}"
     output += title_line.rstrip() + "\n\n"
 
     for i in range(max_lines):

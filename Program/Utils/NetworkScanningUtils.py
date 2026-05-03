@@ -21,7 +21,7 @@ def DomainStatus(domain):
         if ":" in domain: domain = domain.rsplit(":", 1)[0]
         if domain == "localhost": return True
         if IpStatus(domain): return True
-        domain_regex = re.compile(r'^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$')
+        domain_regex = re.compile(r"^(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$")
         if not domain_regex.match(domain): return False
         try:
             socket.gethostbyname(domain)
@@ -83,11 +83,11 @@ def TargetGetIp(domain, detect_target, log=True):
     json_format = None
     try:
         if detect_target in ("localhost:port", "ip:port"):
-            if domain.startswith('[') and ']:' in domain:
-                domain, port_part = domain[1:].split(']:')
+            if domain.startswith("[") and "]:" in domain:
+                domain, port_part = domain[1:].split("]:")
                 port = int(port_part)
-            elif ':' in domain:
-                domain, port_part = domain.split(':', 1)
+            elif ":" in domain:
+                domain, port_part = domain.split(":", 1)
                 port = int(port_part)
         try: ip = socket.gethostbyname(domain)
         except: pass
@@ -103,7 +103,7 @@ def TargetGetIp(domain, detect_target, log=True):
 def UrlSecureConnection(url, log=True):
     status = None
     json_format = None
-    status = url.startswith('https://')
+    status = url.startswith("https://")
     if log: Add(f"URL secure connection: {white}{status}")
     if status: json_format = json.dumps({"URL secure connection": status})
     return status, json_format
@@ -209,9 +209,9 @@ def TargetSslCertificateInfo(domain, socket_timeout, log=True):
                 cert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_ASN1, cert_bin)
                 subject = dict(cert.get_subject().get_components())
                 issuer_d = dict(cert.get_issuer().get_components())
-                cn = subject.get(b'CN', b'').decode()
-                issuer = issuer_d.get(b'CN', b'').decode()
-                issuer_org = issuer_d.get(b'O', b'').decode()
+                cn = subject.get(b"CN", b"").decode()
+                issuer = issuer_d.get(b"CN", b"").decode()
+                issuer_org = issuer_d.get(b"O", b"").decode()
                 not_before_dt = datetime.datetime.strptime(cert.get_notBefore().decode(), "%Y%m%d%H%M%SZ")
                 not_after_dt = datetime.datetime.strptime(cert.get_notAfter().decode(), "%Y%m%d%H%M%SZ")
                 not_before = not_before_dt.strftime("%Y-%m-%d %H:%M:%S UTC")
@@ -402,10 +402,10 @@ def TargetSslCertRevocation(domain, socket_timeout, log=True):
                     name = ext.get_short_name().decode()
                     value = str(ext).replace("\n", " ").replace("  ", " ").strip()
                     if name == "crlDistributionPoints":
-                        m = re.search(r'URI:([^\s]+)', value)
+                        m = re.search(r"URI:([^\s]+)", value)
                         if m: revocation_status["CRL"] = m.group(1)
                     elif name == "authorityInfoAccess":
-                        m = re.search(r'URI:([^\s]+)', value)
+                        m = re.search(r"URI:([^\s]+)", value)
                         if m: revocation_status["OCSP"] = m.group(1)
         if log:
             if "CRL" in revocation_status: Add(f"SSL cert revocation CRL: {white}{revocation_status['CRL']}")
@@ -509,7 +509,7 @@ def TargetAnalyzeCookies(response, log=True):
         max_len = max((len(c.name) for c in response.cookies), default=0)
         for c in response.cookies:
             secure = c.secure
-            http_only = 'HttpOnly' in str(c._rest)
+            http_only = "HttpOnly" in str(c._rest)
             if log: Add(f"Cookie: {white}{c.name:<{max_len}}{red} Secure: {white}{str(secure):<5}{red} HttpOnly: {white + str(http_only)}")
             results.append({"name": c.name, "secure": secure, "http_only": http_only})
         if results: json_format = json.dumps({"Cookies": results})
@@ -589,7 +589,7 @@ def IpType(ip, log=True):
     status = None
     json_format = None
     if not IpStatus(ip): return status, json_format
-    if ':' in ip: status = "ipv6"
+    if ":" in ip: status = "ipv6"
     elif "." in ip: status = "ipv4"
     if log: Add(f"IP type: {white}{'ipv6' if ':' in ip else 'ipv4'}{red}")
     if status: json_format = json.dumps({"IP type": status})
@@ -615,19 +615,19 @@ def IpGetLookup(ip, session, http_timeout, log=True):
     if IpStatus(ip):
         try:
             api          = session.get(f"http://{api_ip_lookup}/json/{ip}", timeout=http_timeout).json()
-            status       = "Valid" if api.get('status') == "success" else "Invalid"
-            country      = api.get('country', None)
-            country_code = api.get('countryCode', None)
-            region       = api.get('regionName', None)
-            region_code  = api.get('region', None)
-            zip          = api.get('zip', None)
-            city         = api.get('city', None)
-            latitude     = api.get('lat', None)
-            longitude    = api.get('lon', None)
-            timezone     = api.get('timezone', None)
-            isp          = api.get('isp', None)
-            org          = api.get('org', None)
-            as_host      = api.get('as', None)
+            status       = "Valid" if api.get("status") == "success" else "Invalid"
+            country      = api.get("country", None)
+            country_code = api.get("countryCode", None)
+            region       = api.get("regionName", None)
+            region_code  = api.get("region", None)
+            zip          = api.get("zip", None)
+            city         = api.get("city", None)
+            latitude     = api.get("lat", None)
+            longitude    = api.get("lon", None)
+            timezone     = api.get("timezone", None)
+            isp          = api.get("isp", None)
+            org          = api.get("org", None)
+            as_host      = api.get("as", None)
         except: pass
 
         temp_vars = {
@@ -699,14 +699,14 @@ def DomainDnsRecords(domain, log=True):
     records     = None
     json_format = None
     found = {}
-    record_types = ['A', 'AAAA', 'MX', 'NS', 'TXT', 'SOA', 'CNAME', 'PTR']
+    record_types = ["A", "AAAA", "MX", "NS", "TXT", "SOA", "CNAME", "PTR"]
     
     try:
         resolver = dns.resolver.Resolver()
         for record_type in record_types:
             try:
                 answers = resolver.resolve(domain, record_type)
-                found[record_type] = [str(rdata).replace('"', '') for rdata in answers]
+                found[record_type] = [str(rdata).replace("\"", "") for rdata in answers]
             except: continue
         if found:
             records = found
@@ -729,13 +729,13 @@ def DomainCertificateTransparency(session, domain, http_timeout, log=True):
             seen = set()
             for entry in data:
                 cert_info = {
-                    "issuer": entry.get('issuer_name'),
-                    "not_before": entry.get('not_before'),
-                    "not_after": entry.get('not_after'),
-                    "common_name": entry.get('common_name'),
-                    "name_value": entry.get('name_value')
+                    "issuer": entry.get("issuer_name"),
+                    "not_before": entry.get("not_before"),
+                    "not_after": entry.get("not_after"),
+                    "common_name": entry.get("common_name"),
+                    "name_value": entry.get("name_value")
                 }
-                cert_info = {k: v for k, v in cert_info.items() if v is not None and v != ''}
+                cert_info = {k: v for k, v in cert_info.items() if v is not None and v != ""}
                 if cert_info:
                     cert_id = f"{cert_info.get('issuer', '')}_{cert_info.get('not_before', '')}_{cert_info.get('common_name', '')}"
                     if cert_id not in seen:
@@ -821,7 +821,7 @@ def IpGetPingAndLatency(ip, socket_timeout=default_socket_timeout, interval=defa
                 ping_status, latency = ICMP()
                 if ping_status: status = "succeed"
                 else: status = "failed"
-                Add(f"IP: {white + str(ip) + red} Bytes: {white + str(bytes) + red} Protocol: {white + "ICMP" + red} Status: {white + status + red} Latency: {white + str(latency) + red}")
+                Add(f"IP: {white + str(ip) + red} Bytes: {white + str(bytes) + red} Protocol: {white + 'ICMP' + red} Status: {white + status + red} Latency: {white + str(latency) + red}")
                 time.sleep(interval)
         else: 
             ping_status, latency = ICMP()
@@ -832,7 +832,7 @@ def IpGetPingAndLatency(ip, socket_timeout=default_socket_timeout, interval=defa
                 ping_status, latency = TCP()
                 if ping_status: status = "succeed"
                 else: status = "failed"
-                Add(f"IP: {white + str(ip) + red} Port: {white + str(port) + red} Protocol: {white + "TCP" + red} Status: {white + status + red} Latency: {white + str(latency) + red}")
+                Add(f"IP: {white + str(ip) + red} Port: {white + str(port) + red} Protocol: {white + 'TCP' + red} Status: {white + status + red} Latency: {white + str(latency) + red}")
                 time.sleep(interval)
         else: ping_status, latency = TCP()
 
@@ -986,12 +986,12 @@ def IpGetPort(ip, socket_timeout=None, port=None, all=None, mass_scan=False, por
             with lock: 
                 if protocol   == "TCP": tcp_port_stats[status].append({"Port": port, "Protocol": protocol, "Status": status, "Latency": "timeout", "Service": service})
                 elif protocol == "UDP": udp_port_stats[status].append({"Port": port, "Protocol": protocol, "Status": status, "Latency": "timeout", "Service": service})
-            if not mass_scan and log: Add(f"{white}{port:<7} {protocol:<10} {status:<14} {"timeout":<10} {service}")
+            if not mass_scan and log: Add(f"{white}{port:<7} {protocol:<10} {status:<14} {'timeout':<10} {service}")
         elif status == "Filtered":
             with lock: 
                 if protocol   == "TCP": tcp_port_stats[status].append({"Port": port, "Protocol": protocol, "Status": status, "Latency": "timeout", "Service": service})
                 elif protocol == "UDP": udp_port_stats[status].append({"Port": port, "Protocol": protocol, "Status": status, "Latency": "timeout", "Service": service})
-            if not mass_scan and log: Add(f"{white}{port:<7} {protocol:<10} {status:<14} {"timeout":<10} {service}")
+            if not mass_scan and log: Add(f"{white}{port:<7} {protocol:<10} {status:<14} {'timeout':<10} {service}")
         elif status == "Closed":
             with lock: 
                 if protocol   == "TCP": tcp_port_stats[status].append({"Port": port, "Protocol": protocol, "Status": status, "Latency": latency, "Service": service})
@@ -1012,11 +1012,11 @@ def IpGetPort(ip, socket_timeout=None, port=None, all=None, mass_scan=False, por
         state = {"stop": False, "completed": 0, "completed_total": len(ports_to_scan)}
         StartThread(StatsPressed, state, time_start=time.time())
 
-    if log: print(f"{red}{"":<14} {"Port:":<7} {"Protocol:":<10} {"Status:":<14} {"Latency:":<10} Service:{reset}")
+    if log: print(f"{red}{'':<14} {'Port:':<7} {'Protocol:':<10} {'Status:':<14} {'Latency:':<10} Service:{reset}")
     with concurrent.futures.ThreadPoolExecutor(max_workers=socket_max_workers) as exe: exe.map(ScanPort, ports_to_scan)
 
     if stats_pressed: state["stop"] = True
-    if log: Info(f"Open: {white}{len(tcp_port_stats['Open']) + len(udp_port_stats['Open'])}{red} Closed: {white}{len(tcp_port_stats['Closed']) + len(udp_port_stats['Closed'])}{red} Filtered (no response): {white}{len(tcp_port_stats['Filtered']) }")
+    if log: Info(f"Open: {white}{len(tcp_port_stats['Open']) + len(udp_port_stats['Open'])}{red} Closed: {white}{len(tcp_port_stats['Closed']) + len(udp_port_stats['Closed'])}{red} Filtered (no response): {white}{len(tcp_port_stats['Filtered'])}")
 
     if "TCP" in protocol_scan:
         if not mass_scan: tcp_summary = {"TCP Port": tcp_port_stats}
@@ -1108,8 +1108,8 @@ def IpOsFingerprint(ip, open_ports, socket_timeout, log=True):
 
     def Vote(os_name, weight, source):
         if not os_name or os_name == "Unknown": return
-        for os_part in os_name.split('/'):
-            os_clean = os_part.strip().split('(')[0].strip()
+        for os_part in os_name.split("/"):
+            os_clean = os_part.strip().split("(")[0].strip()
             if os_clean and os_clean != "Unknown":
                 os_votes[os_clean] = os_votes.get(os_clean, 0) + weight
                 if os_clean not in details: details[os_clean] = []
@@ -1173,31 +1173,31 @@ def IpOsFingerprint(ip, open_ports, socket_timeout, log=True):
             s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_ICMP)
             s.settimeout(socket_timeout)
             pid = random.randint(1, max_port)
-            header = struct.pack('!BBHHH', 8, 0, 0, pid, 1)
-            data = struct.pack('!d', time.time())
-            checksum = sum(struct.unpack('!%dH' % (len(header + data) // 2), header + data))
+            header = struct.pack("!BBHHH", 8, 0, 0, pid, 1)
+            data = struct.pack("!d", time.time())
+            checksum = sum(struct.unpack("!%dH" % (len(header + data) // 2), header + data))
             checksum = (checksum >> 16) + (checksum & 0xffff)
             checksum = ~checksum & 0xffff
-            header = struct.pack('!BBHHH', 8, 0, checksum, pid, 1)
+            header = struct.pack("!BBHHH", 8, 0, checksum, pid, 1)
             s.sendto(header + data, (ip, 0))
             reply, _ = s.recvfrom(1024)
             s.close()
-            ttl = struct.unpack('!B', reply[8:9])[0]
+            ttl = struct.unpack("!B", reply[8:9])[0]
             if ttl <= 64: Vote("Linux", 2, "ICMP")
             elif ttl <= 128: Vote("Windows", 2, "ICMP")
             else: Vote("Cisco", 2, "ICMP")
         except: pass
         
         BANNER_PATTERNS = {
-            r'Ubuntu': 'Ubuntu', r'Debian': 'Debian', r'CentOS': 'CentOS', r'Red Hat': 'Red Hat',
-            r'Fedora': 'Fedora', r'FreeBSD': 'FreeBSD', r'OpenBSD': 'OpenBSD', r'Microsoft': 'Windows',
-            r'Win32': 'Windows', r'Win64': 'Windows', r'IIS': 'Windows Server',
-            r'Apache.*Ubuntu': 'Ubuntu', r'Apache.*Debian': 'Debian', r'Apache.*CentOS': 'CentOS',
-            r'Apache.*Win': 'Windows', r'nginx.*Ubuntu': 'Ubuntu', r'nginx.*Debian': 'Debian',
-            r'OpenSSH.*Ubuntu': 'Ubuntu', r'OpenSSH.*Debian': 'Debian', r'OpenSSH.*FreeBSD': 'FreeBSD',
-            r'OpenSSH.*CentOS': 'CentOS', r'vsftpd': 'Linux', r'FileZilla': 'Windows',
-            r'Exim': 'Linux', r'Postfix': 'Linux', r'Sendmail': 'Unix',
-            r'Microsoft ESMTP': 'Windows Server', r'Samba': 'Linux', r'ProFTPD.*Debian': 'Debian'
+            r"Ubuntu": "Ubuntu", r"Debian": "Debian", r"CentOS": "CentOS", r"Red Hat": "Red Hat",
+            r"Fedora": "Fedora", r"FreeBSD": "FreeBSD", r"OpenBSD": "OpenBSD", r"Microsoft": "Windows",
+            r"Win32": "Windows", r"Win64": "Windows", r"IIS": "Windows Server",
+            r"Apache.*Ubuntu": "Ubuntu", r"Apache.*Debian": "Debian", r"Apache.*CentOS": "CentOS",
+            r"Apache.*Win": "Windows", r"nginx.*Ubuntu": "Ubuntu", r"nginx.*Debian": "Debian",
+            r"OpenSSH.*Ubuntu": "Ubuntu", r"OpenSSH.*Debian": "Debian", r"OpenSSH.*FreeBSD": "FreeBSD",
+            r"OpenSSH.*CentOS": "CentOS", r"vsftpd": "Linux", r"FileZilla": "Windows",
+            r"Exim": "Linux", r"Postfix": "Linux", r"Sendmail": "Unix",
+            r"Microsoft ESMTP": "Windows Server", r"Samba": "Linux", r"ProFTPD.*Debian": "Debian"
         }
         
         for port in open_ports:
@@ -1205,7 +1205,7 @@ def IpOsFingerprint(ip, open_ports, socket_timeout, log=True):
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.settimeout(socket_timeout)
                 s.connect((ip, port))
-                banner = s.recv(2048).decode(errors='ignore').strip()
+                banner = s.recv(2048).decode(errors="ignore").strip()
                 s.close()
                 if banner:
                     for pattern, os_name in BANNER_PATTERNS.items():
@@ -1215,12 +1215,12 @@ def IpOsFingerprint(ip, open_ports, socket_timeout, log=True):
             except: continue
         
         HTTP_PATTERNS = {
-            r'Microsoft-IIS/10': 'Windows Server 2016', r'Microsoft-IIS/8': 'Windows Server 2012',
-            r'Microsoft-IIS/7': 'Windows Server 2008', r'Microsoft-IIS': 'Windows Server',
-            r'Win32': 'Windows', r'Win64': 'Windows', r'Ubuntu': 'Ubuntu', r'Debian': 'Debian',
-            r'CentOS': 'CentOS', r'Red Hat': 'Red Hat', r'Apache.*Ubuntu': 'Ubuntu',
-            r'Apache.*Debian': 'Debian', r'Apache.*CentOS': 'CentOS', r'Apache.*Win': 'Windows',
-            r'nginx.*Ubuntu': 'Ubuntu', r'nginx.*Debian': 'Debian', r'nginx.*CentOS': 'CentOS'
+            r"Microsoft-IIS/10": "Windows Server 2016", r"Microsoft-IIS/8": "Windows Server 2012",
+            r"Microsoft-IIS/7": "Windows Server 2008", r"Microsoft-IIS": "Windows Server",
+            r"Win32": "Windows", r"Win64": "Windows", r"Ubuntu": "Ubuntu", r"Debian": "Debian",
+            r"CentOS": "CentOS", r"Red Hat": "Red Hat", r"Apache.*Ubuntu": "Ubuntu",
+            r"Apache.*Debian": "Debian", r"Apache.*CentOS": "CentOS", r"Apache.*Win": "Windows",
+            r"nginx.*Ubuntu": "Ubuntu", r"nginx.*Debian": "Debian", r"nginx.*CentOS": "CentOS"
         }
         
         for port in open_ports:
@@ -1235,13 +1235,13 @@ def IpOsFingerprint(ip, open_ports, socket_timeout, log=True):
                     s = ctx.wrap_socket(s, server_hostname=ip)
                 s.connect((ip, port))
                 s.sendall(f"HEAD / HTTP/1.1\r\nHost: {ip}\r\nConnection: close\r\n\r\n".encode())
-                resp = s.recv(2048).decode(errors='ignore')
+                resp = s.recv(2048).decode(errors="ignore")
                 s.close()
                 if resp:
                     server = powered = ""
-                    for line in resp.split('\r\n'):
-                        if line.lower().startswith('server:'): server = line.split(':', 1)[1].strip()
-                        if line.lower().startswith('x-powered-by:'): powered = line.split(':', 1)[1].strip()
+                    for line in resp.split("\r\n"):
+                        if line.lower().startswith("server:"): server = line.split(":", 1)[1].strip()
+                        if line.lower().startswith("x-powered-by:"): powered = line.split(":", 1)[1].strip()
                     combined = server + " " + powered
                     for pattern, os_name in HTTP_PATTERNS.items():
                         if re.search(pattern, combined, re.I):
@@ -1281,7 +1281,7 @@ def IpOsFingerprint(ip, open_ports, socket_timeout, log=True):
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.settimeout(socket_timeout)
                 s.connect((ip, port))
-                banner = s.recv(1024).decode(errors='ignore').strip()
+                banner = s.recv(1024).decode(errors="ignore").strip()
                 s.close()
                 if banner:
                     if "Ubuntu" in banner: Vote("Ubuntu", 5, f"SSH:{port}")
@@ -1368,32 +1368,32 @@ def DetectTarget(value):
     
     value = value.strip().lower()
 
-    url_match = re.match(r'^(https?://)(.+)', value)
+    url_match = re.match(r"^(https?://)(.+)", value)
     if url_match:
         host_part = url_match.group(2)
-        if re.match(r'^(localhost)(:\d+)?', host_part): return "localhost:port/page" if ':' in host_part and '/' in host_part else ("localhost/page" if '/' in host_part else "localhost:port" if ':' in host_part else "localhost")
+        if re.match(r"^(localhost)(:\d+)?", host_part): return "localhost:port/page" if ":" in host_part and "/" in host_part else ("localhost/page" if "/" in host_part else "localhost:port" if ":" in host_part else "localhost")
         try:
             ip_only = host_part
-            if host_part.startswith('[') and ']:' in host_part: ip_only = host_part.split(']')[0][1:]
-            elif ':' in host_part and host_part.count(':') > 1: ip_only = host_part
-            elif ':' in host_part and host_part.count(':') == 1: ip_only = host_part.split(':')[0]
+            if host_part.startswith("[") and "]:" in host_part: ip_only = host_part.split("]")[0][1:]
+            elif ":" in host_part and host_part.count(":") > 1: ip_only = host_part
+            elif ":" in host_part and host_part.count(":") == 1: ip_only = host_part.split(":")[0]
             ipaddress.ip_address(ip_only)
-            if value.startswith('[') and ']:' in value: return "ip:port/page" if '/' in value else "ip:port"
-            if ip_only.count(':') > 1: return "ip"
-            return "ip:port/page" if '/' in host_part else "ip:port"
+            if value.startswith("[") and "]:" in value: return "ip:port/page" if "/" in value else "ip:port"
+            if ip_only.count(":") > 1: return "ip"
+            return "ip:port/page" if "/" in host_part else "ip:port"
         except: pass
-        return "url/page" if '/' in host_part else "url"
+        return "url/page" if "/" in host_part else "url"
     try:
         ip_only = value
-        if value.startswith('[') and ']:' in value: ip_only = value.split(']')[0][1:]
-        elif ':' in value and value.count(':') > 1: ip_only = value
-        elif ':' in value and value.count(':') == 1: ip_only = value.split(':')[0]
+        if value.startswith("[") and "]:" in value: ip_only = value.split("]")[0][1:]
+        elif ":" in value and value.count(":") > 1: ip_only = value
+        elif ":" in value and value.count(":") == 1: ip_only = value.split(":")[0]
         ipaddress.ip_address(ip_only)
-        if value.startswith('[') and ']:' in value: return "ip:port/page" if '/' in value else "ip:port"
-        if ip_only.count(':') > 1: return "ip"
-        return "ip:port/page" if '/' in value else ("ip:port" if ':' in value else "ip")
+        if value.startswith("[") and "]:" in value: return "ip:port/page" if "/" in value else "ip:port"
+        if ip_only.count(":") > 1: return "ip"
+        return "ip:port/page" if "/" in value else ("ip:port" if ":" in value else "ip")
     except: pass
-    if re.match(r'^(localhost)(:\d+)?', value): return "localhost:port/page" if ':' in value and '/' in value else ("localhost/page" if '/' in value else "localhost:port" if ':' in value else "localhost")
-    domain_part = value.split('/')[0]
-    if re.match(r'^([a-z0-9-]+\.)+[a-z]{2,}$', domain_part): return "domain/page" if '/' in value else "domain"
+    if re.match(r"^(localhost)(:\d+)?", value): return "localhost:port/page" if ":" in value and "/" in value else ("localhost/page" if "/" in value else "localhost:port" if ":" in value else "localhost")
+    domain_part = value.split("/")[0]
+    if re.match(r"^([a-z0-9-]+\.)+[a-z]{2,}$", domain_part): return "domain/page" if "/" in value else "domain"
     return "unknown"

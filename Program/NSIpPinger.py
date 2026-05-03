@@ -24,7 +24,7 @@ def IpPinger(target=None, mode=None, bytes=None, port=None, interval=None, socke
         """)
         mode = Input("Ping mode [-m] -> ")
 
-    if mode.strip().lower() in ('1', '01', 'icmp'): 
+    if mode.strip().lower() in ("1", "01", "icmp"): 
         if not has_cli_args: 
             interval = Input(f"Interval [-i] (default: {str(default_interval)}) -> ")
             bytes    = Input(f"Bytes [-b] (default: {str(default_bytes)}) -> ")
@@ -43,7 +43,7 @@ def IpPinger(target=None, mode=None, bytes=None, port=None, interval=None, socke
 
         IpGetPingAndLatency(ip, interval=interval, status="ICMP", bytes=bytes, loop=True, log=False)
 
-    if mode.strip().lower() in ('2', '02', 'tcp'): 
+    if mode.strip().lower() in ("2", "02", "tcp"): 
         if not has_cli_args: 
             socket_timeout = Input(f"Max socket timeout [-ST] (default: {str(default_socket_timeout)}) -> ")
             socket_proxy   = Input(f"Socket proxy [-SP] (default: {str(default_socket_proxy)}) -> ")
