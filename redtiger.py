@@ -185,7 +185,7 @@ def BuildMenu(option_names, option_categories, options_list):
     title_line = "  "
 
     for category, _ in categories: title_line += f"{BEFORE + category + AFTER:<{col_width}}"
-    if not any(category == "Plugins" for category, _ in categories): title_line += f"{BEFORE + "Plugins" + AFTER:<{col_width}}"
+    if not any(category == "Plugins" for category, _ in categories): title_line += f"{BEFORE + 'Plugins' + AFTER:<{col_width}}"
     output += title_line.rstrip() + "\n\n"
 
     for i in range(max_lines):
