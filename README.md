@@ -22,8 +22,8 @@
   <li>⚙️ Compatible with Windows and Linux.</li>
   <li>🧠 Legal, advanced and optimized version.</li>
   <li>🔎 Tool oriented toward pentesting and OSINT.</li>
-  <li>🧩 Plugin system allowing users to add or create new features.</li>
-  <li>📁 Centralized configuration via JSON files in the <a href="Data">/Data</a> directory.</li>
+  <li>🧩 Plugin system allowing users to add or create new features in the <a href="Plugins">/Plugins</a> folder. (If you want to create a plugin and publish it on github put the tag "#redtiger-tools" in your repository, the example script can be found in: <a href="Plugins/Example.py">/Plugins/Example.py</a>)</li>
+  <li>📁 Centralized configuration via JSON files in the <a href="Data">/Data</a> folder.</li>
   <li>💻 Supports CLI mode and interactive interface.</li>
 </ul>
 
@@ -36,11 +36,17 @@
 <h2>⚙️ Installation:</h2>
 
 <ol>
-  <li>Installed the latest version of python (3.14):</li>
+  <li>Installed the latest version of Python (3.14):</li>
   - Windows:
   <pre><a href="https://www.python.org/downloads">Download Here</a> (The "PATH" option must be enabled during installation)</pre>
   - Linux:
   <pre>sudo apt install python3 -y</pre>
+
+  <li>Installed the latest version of Git:</li>
+  - Windows:
+  <pre><a href="https://git-scm.com/install/windows">Download Here</a> (The "PATH" option must be enabled during installation)</pre>
+  - Linux:
+  <pre>sudo apt install git -y</pre>
   
   <li>Clone the repository:</li>
   <pre>git clone https://github.com/loxy0devlp/RedTiger-Tools.git</pre>
@@ -59,6 +65,16 @@
   <pre>python redtiger.py</pre>
   - Linux:
   <pre>python3 redtiger.py</pre>
+</ol>
+
+<h2>🔄 Update:</h2>
+
+<ol>
+  <li>Enter the project folder:</li>
+  <pre>cd RedTiger-Tools</pre>
+
+  <li>Update launch:</li>
+  <pre>git pull</pre>
 </ol>
 
 <h2>🚀 Features:</h2>
@@ -151,7 +167,7 @@ Osint:
     --http-timeout           / -HT  : Set the maximum HTTP timeout for the API in seconds: <timeout>
     --http-proxy             / -HP  : Set an HTTP proxy for the API: <proxy:port>
     --useragent              / -u   : Set a user-agent for the API: random / <useragent>
-  --phone-numer-lookup       / -pnl : Retrieve public data from a phone number.
+  --phone-number-lookup      / -pnl : Retrieve public data from a phone number.
   * --phone                  / -p   : Phone number target: <number>
     --output                 / -o   : Creating additional JSON output.
   --instagram-profile-lookup / -ipl : Retrieve public data from an instagram username.
@@ -184,7 +200,7 @@ Notations:
 <h2>👨‍💻 Credits:</h2>
 
 <ul>
-  <li>Developed by: <b>loxy0devlp</b></li>
+  <li>Developed by: <b>Loxy0devlp</b></li>
   <li>GitHub: <a href="https://github.com/loxy0devlp">github.com/loxy0devlp</a></li>
   <li>GunsLol: <a href="https://guns.lol/loxy0dev">guns.lol/loxy0dev</a></li>
   <li>License: <b>MIT License</b></li>
