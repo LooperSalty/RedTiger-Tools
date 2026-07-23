@@ -185,7 +185,8 @@ def BuildMenu(option_names, option_categories, options_list):
 
     output  = f"  {BEFORE}H{AFTER + white} Help\n"
     output += f"  {BEFORE}V{AFTER + white} Version\n"
-    output += f"  {BEFORE}S{AFTER + white} Settings\n\n"
+    output += f"  {BEFORE}S{AFTER + white} Settings\n"
+    output += f"  {BEFORE}E{AFTER + white} Exit\n\n"
     title_line = "  "
 
     for category, _ in categories: title_line += f"{BEFORE + category + AFTER:<{col_width}}"
@@ -215,14 +216,16 @@ def Menu():
                 Slow(menu)
                 choice = input(MainColor(f" ┌──({white}{os_username}@redtiger)─{red}[{white}") + path_folder_tool + MainColor(f"]\n └─{white}$ {reset}")).strip().lower()
                 try:
-                    if choice in ("h", "help"): 
+                    if choice in ("e", "exit", "quit"):
+                        sys.exit(0)
+                    elif choice in ("h", "help"):
                         Help(options_list, options_hidden_list)
                         continue
-                    elif choice in ("v", "version"): 
+                    elif choice in ("v", "version"):
                         print()
                         Version()
                         continue
-                    elif choice in ("s", "settings"): 
+                    elif choice in ("s", "settings"):
                         SettingsUpdate()
                         continue
                     name, description, category, function, argument = options_list[int(choice)]
@@ -231,15 +234,21 @@ def Menu():
                         continue
                     else:
                         try:
-                            print() 
+                            print()
                             function()
+                        except ReturnToMenu:
+                            continue
                         except Exception as e: ErrorUnknown(f"Error {name}: {white + str(e)}")
-                except (ValueError, IndexError): 
+                except (ValueError, IndexError):
                     ErrorChoiceStart()
                     continue
         else:
             print(MainColor(f"{banner_redtiger}\n"))
             Help(options_list, options_hidden_list)
 
-CheckUpdate()
-Menu()
+def main():
+    CheckUpdate()
+    Menu()
+
+if __name__ == "__main__":
+    main()

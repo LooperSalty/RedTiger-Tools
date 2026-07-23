@@ -11,7 +11,7 @@ try:
     import phonenumbers, phonenumbers.geocoder, phonenumbers.carrier, phonenumbers.timezone, whois, smtplib, string, logging
     import instaloader, math, zlib, importlib.util
 except Exception as e:
-    print(f"\nModules of the python library required for RedTiger are not installed, make sure you have correctly installed python and have launched the \"setup.py\" file which will install all the necessary modules.")
+    print(f"\nModules of the python library required for RedTiger are not installed. Install them with:\n  python -m venv .venv && .venv/bin/pip install -e .        (Linux/macOS)\n  py -m venv .venv && .venv\\Scripts\\pip install -e .        (Windows)\nThen run the tool with the interpreter from that virtual environment.")
     sys.exit(f"Error: {e}")
 
 try:    os_name     = "Windows" if sys.platform.startswith("win") else "Linux" if sys.platform.startswith("linux") else "Unknown"
@@ -126,20 +126,35 @@ def Add(message):
 def Wait(message):
     return print(f"{BEFORE}{Hour()}{AFTER} {WAIT} {message}{reset}")
 
+class ReturnToMenu(BaseException):
+    """Raised from an interactive prompt when the user types 'exit'/'quit' to abort the
+    current task and go back to the main menu. Subclasses BaseException so tool-level
+    'except Exception' handlers do not swallow it before it reaches the menu loop."""
+    pass
+
 def Input(message):
-    return input(f"{BEFORE}{Hour()}{AFTER} {INPUT} {message}{reset}")
+    value = input(f"{BEFORE}{Hour()}{AFTER} {INPUT} {message}{reset}")
+    # In interactive mode, typing exit/quit at any prompt aborts the running task and
+    # returns to the main menu (the menu loop catches ReturnToMenu). CLI mode is untouched.
+    if not has_cli_args and version_interface and value.strip().lower() in ("exit", "quit"):
+        raise ReturnToMenu
+    return value
 
 def Title(title):
     if os_name == "Windows": ctypes.windll.kernel32.SetConsoleTitleW(f"{tool_name} v{tool_version} - {title}")
-    elif os_name == "Linux": sys.stdout.write(f"\x1b]2;{tool_name} v{tool_version} - {title}\x07")
+    # Only emit the terminal-title OSC sequence on an interactive terminal. When stdout is
+    # redirected (pipe, file, CI), colorama tries to convert the sequence and crashes on Linux
+    # ('NoneType' has no attribute 'set_title'), so guard on isatty().
+    elif os_name == "Linux" and sys.stdout.isatty(): sys.stdout.write(f"\x1b]2;{tool_name} v{tool_version} - {title}\x07")
 
 def Clear():
     if os_name == "Windows": subprocess.run("cls",   shell=True)
     elif os_name == "Linux": subprocess.run("clear", shell=True)
 
 def Start():
-    if os_name == "Windows": subprocess.run(['python',  path_file_tool])
-    elif os_name == "Linux": subprocess.run(['python3', path_file_tool])
+    # Restart with the same interpreter that is currently running (e.g. the venv's python),
+    # so a self-restart keeps the installed dependencies instead of falling back to a bare python3.
+    subprocess.run([sys.executable, path_file_tool])
 
 def Reset():
     if version_interface and not has_cli_args: Start()

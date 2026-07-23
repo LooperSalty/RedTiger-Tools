@@ -2,3 +2,7 @@
 /**/__pycache__/
 /Output/*
 !/Output/.gitkeep
+/.venv/
+*.egg-info/
+build/
+dist/

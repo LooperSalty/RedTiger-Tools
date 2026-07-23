@@ -54,17 +54,21 @@
   <li>Enter the project folder:</li>
   <pre>cd RedTiger-Tools</pre>
 
-  <li>Launched the setup:</li>
+  <li>Create a virtual environment and install the tool (installs all dependencies and a <code>redtiger</code> command):</li>
   - Windows:
-  <pre>python setup.py</pre>
+  <pre>py -m venv .venv
+.venv\Scripts\pip install -e .</pre>
   - Linux:
-  <pre>python3 setup.py</pre>
+  <pre>python3 -m venv .venv
+.venv/bin/pip install -e .</pre>
 
   <li>Launch the tool:</li>
   - Windows:
-  <pre>python redtiger.py</pre>
+  <pre>.venv\Scripts\redtiger        (or: .venv\Scripts\python redtiger.py)</pre>
   - Linux:
-  <pre>python3 redtiger.py</pre>
+  <pre>.venv/bin/redtiger            (or: .venv/bin/python redtiger.py)</pre>
+
+  <p>Tip: run <code>.venv\Scripts\activate</code> (Windows) or <code>source .venv/bin/activate</code> (Linux) once, then just type <code>redtiger</code>. In the interactive interface, type <code>exit</code> at any prompt to return to the menu, and <code>exit</code> at the menu to quit.</p>
 </ol>
 
 <h2>🔄 Update:</h2>

@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "redtiger-tools"
+version = "1.0b0"
+description = "Multifunction automation tool dedicated to pentesting and OSINT, with a plugin system and a unified CLI/interactive interface."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Loxy0devlp" }]
+keywords = ["pentesting", "osint", "security", "cli", "scanner"]
+dependencies = [
+    "beautifulsoup4",
+    "colorama",
+    "dnspython",
+    "exifread",
+    "ipwhois",
+    "keyboard",
+    "lxml",
+    "mutagen",
+    "piexif",
+    "Pillow",
+    "PyMuPDF",
+    "pyOpenSSL",
+    "PySocks",
+    "requests",
+    "urllib3",
+    "instaloader",
+    "phonenumbers",
+    "python-whois",
+]
+
+[project.urls]
+Homepage = "https://github.com/loxy0devlp/RedTiger-Tools"
+Repository = "https://github.com/loxy0devlp/RedTiger-Tools"
+
+# Exposes a `redtiger` command on PATH (inside the venv) that runs redtiger.py's main().
+[project.scripts]
+redtiger = "redtiger:main"
+
+# Flat layout: redtiger.py is a top-level module; Config/ and Program/ are (namespace) packages.
+# Data/, Plugins/, Images/, Ouput/ are located at runtime relative to the source tree, so an
+# editable install (`pip install -e .`) is the intended way to install from a checkout.
+[tool.setuptools]
+py-modules = ["redtiger"]
+
+[tool.setuptools.packages.find]
+include = ["Config*", "Program*"]
+namespaces = true
