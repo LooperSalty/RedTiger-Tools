@@ -1,5 +1,6 @@
 beautifulsoup4
 colorama
+cryptography
 dnspython
 exifread
 ipwhois

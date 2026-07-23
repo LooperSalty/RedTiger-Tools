@@ -14,6 +14,7 @@ keywords = ["pentesting", "osint", "security", "cli", "scanner"]
 dependencies = [
     "beautifulsoup4",
     "colorama",
+    "cryptography",
     "dnspython",
     "exifread",
     "ipwhois",
